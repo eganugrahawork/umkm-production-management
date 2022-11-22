@@ -23,7 +23,7 @@ class CreatePartnersTable extends Migration
             $table->string('address');
             $table->string('bank_name');
             $table->string('bank_number')->unique();
-            $table->boolean('status');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

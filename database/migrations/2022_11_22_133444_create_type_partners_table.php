@@ -16,7 +16,7 @@ class CreateTypePartnersTable extends Migration
         Schema::create('type_partners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('status');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

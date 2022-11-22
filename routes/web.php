@@ -61,4 +61,10 @@ Route::middleware('auth')->controller(MenuAccessController::class)->group(functi
 
 Route::middleware('auth')->controller(PartnerController::class)->group(function () {
     Route::get('admin/masterdata/partner', 'index');
+    Route::get('admin/masterdata/partner/list', 'list');
+    Route::get('admin/masterdata/partner/info', 'info');
+    Route::get('admin/masterdata/partner/create', 'create');
+    Route::post('admin/masterdata/partner/store', 'store');
+    Route::get('admin/masterdata/partner/edit', 'edit');
+    Route::get('admin/masterdata/partner/delete/{id}', 'delete');
 });

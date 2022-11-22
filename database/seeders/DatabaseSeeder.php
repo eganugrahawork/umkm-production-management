@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
                 UserSeeder::class,
                 RoleSeeder::class,
                 MenuSeeder::class,
-                MenuAccessSeeder::class
+                MenuAccessSeeder::class,
+                TypePartnerSeeder::class
             ]
             );
     }
