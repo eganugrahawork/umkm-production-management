@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\MenuAccessController;
-use App\Http\Controllers\Admin\MenuController;
-use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\Dashboard\DashboardController;
+use App\Http\Controllers\Admin\Configuration\MenuAccessController;
+use App\Http\Controllers\Admin\Configuration\MenuController;
+use App\Http\Controllers\Admin\Configuration\RoleController;
+use App\Http\Controllers\Admin\Masterdata\Partner\PartnerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware('auth')->get('/settings', function(){
+Route::middleware('auth')->get('/settings', function () {
     return view('admin.settings.index');
 });
 
@@ -26,7 +27,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::middleware('auth')->controller(MenuController::class)->group(function(){
+Route::middleware('auth')->controller(MenuController::class)->group(function () {
     Route::get('/admin/menu/index', 'index');
     Route::get('/admin/menu/list', 'list');
     Route::get('/admin/menu/create', 'create');
@@ -37,7 +38,7 @@ Route::middleware('auth')->controller(MenuController::class)->group(function(){
     Route::get('/admin/menu/loadmenu/{parent}/{role_id}', 'loadmenu');
 });
 
-Route::middleware('auth')->controller(RoleController::class)->group(function(){
+Route::middleware('auth')->controller(RoleController::class)->group(function () {
     Route::get('/admin/role/index', 'index');
     Route::get('/admin/role/list', 'list');
     Route::get('/admin/role/create', 'create');
@@ -47,7 +48,7 @@ Route::middleware('auth')->controller(RoleController::class)->group(function(){
     Route::get('/admin/role/delete/{id}', 'destroy');
 });
 
-Route::middleware('auth')->controller(MenuAccessController::class)->group(function(){
+Route::middleware('auth')->controller(MenuAccessController::class)->group(function () {
     Route::get('/admin/menuaccess/index', 'index');
     Route::get('/admin/menuaccess/list', 'list');
     Route::get('/admin/menuaccess/access/{id}', 'access');
@@ -56,4 +57,8 @@ Route::middleware('auth')->controller(MenuAccessController::class)->group(functi
     Route::get('/admin/menuaccess/permission/{id}', 'permission');
     Route::get('/admin/menuaccess/listpermission/{id}', 'listpermission');
     Route::post('/admin/menuaccess/changepermission', 'changepermission');
+});
+
+Route::middleware('auth')->controller(PartnerController::class)->group(function () {
+    Route::get('admin/masterdata/partner', 'index');
 });

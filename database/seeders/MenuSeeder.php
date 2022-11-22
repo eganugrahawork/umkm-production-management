@@ -38,8 +38,22 @@ class MenuSeeder extends Seeder
         Menu::create([
             'parent' => 3,
             'name' => 'Partner',
-            'url'=> '/admin/partner',
+            'url'=> '/admin/masterdata/partner',
             'icon'=> 'people',
+            'status'=> 1
+        ]);
+        Menu::create([
+            'parent' => 4,
+            'name' => 'Partner List',
+            'url'=> '/admin/masterdata/partner',
+            'icon'=> '-',
+            'status'=> 1
+        ]);
+        Menu::create([
+            'parent' => 4,
+            'name' => 'Type Partner',
+            'url'=> '/admin/masterdata/partner/typepartner',
+            'icon'=> '-',
             'status'=> 1
         ]);
     }
