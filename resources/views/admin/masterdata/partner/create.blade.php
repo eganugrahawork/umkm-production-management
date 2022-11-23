@@ -3,8 +3,19 @@
     <div class="row">
     <div class="col-lg-6">
         <div class="fv-row mb-7">
+            <label class="required form-label fw-bold">Partner Type</label>
+            <div class="col-lg-8">
+                <select class="form-select  form-select-solid mb-3 mb-lg-0" name="type_id" id="type_id" required>
+                    <option value="">Choose First</option>
+                    @foreach ($typepartner as $pt)
+                    <option value="{{ $pt->id }}">{{ $pt->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="fv-row mb-7">
             <label class="required fw-bold fs-6 mb-2">Code</label>
-            <input type="text" name="code" id="code" class="form-control form-control-solid mb-3 mb-lg-0"  required/>
+            <input type="text" name="code" id="code" class="form-control form-control-solid mb-3 mb-lg-0" readonly required/>
         </div>
         <div class="fv-row mb-7">
             <label class="required fw-bold fs-6 mb-2">Name</label>
@@ -13,16 +24,6 @@
         <div class="fv-row mb-7">
             <label class="required fw-bold fs-6 mb-2">Email</label>
             <input type="email" name="email" id="email" class="form-control form-control-solid mb-3 mb-lg-0"  required/>
-        </div>
-        <div class="fv-row mb-7">
-            <label class="required form-label fw-bold">Partner Type</label>
-            <div class="col-lg-8">
-                <select class="form-select  form-select-solid mb-3 mb-lg-0" name="partner_type" id="partner_type" required>
-                    @foreach ($typepartner as $pt)
-                    <option value="{{ $pt->id }}">{{ $pt->name }}</option>
-                    @endforeach
-                </select>
-            </div>
         </div>
         <div class="fv-row mb-7">
             <label class="required fw-bold fs-6 mb-2">Phone</label>
@@ -41,7 +42,7 @@
                     <input type="text" name="bank_name" id="bank_name" class="form-control form-control-solid mb-3 mb-lg-0"  required/>
                 </div>
                 <div class="col-lg-8">
-                    <input type="text" name="account_number" id="account_number" class="form-control form-control-solid mb-3 mb-lg-0"  required/>
+                    <input type="text" name="bank_number" id="bank_number" class="form-control form-control-solid mb-3 mb-lg-0"  required/>
                 </div>
             </div>
         </div>
@@ -63,7 +64,7 @@
     </form>
 
     <script>
-        $(document).on('submit', '#add-form', function(e){
+        $('#add-form').on('submit', function(e){
             e.preventDefault();
 
             if($('#code').val().length < 1 ||  $('#name').val().length < 1 || $('#email').val().length < 1){
@@ -93,5 +94,18 @@
                 }
             })
         }
+        });
+
+        $('#type_id').on('change', function(){
+            var type_id = $('#type_id').val()
+            $.ajax({
+                type:'get',
+                url: "{{ url('/admin/masterdata/partner/getcode') }}/"+type_id,
+                dataType: 'json',
+                success:function(response){
+                    console.log(response);
+                    $('#code').val(response.code);
+                }
+            })
         });
     </script>

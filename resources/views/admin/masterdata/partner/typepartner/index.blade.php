@@ -6,7 +6,7 @@
     <div class="toolbar py-5 py-lg-5" id="kt_toolbar">
         <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
             <div class="page-title d-flex flex-column me-3">
-                <h1 class="d-flex text-dark fw-bolder my-1 fs-3">Partners</h1>
+                <h1 class="d-flex text-dark fw-bolder my-1 fs-3">Type Partners</h1>
                 <ul class="breadcrumb breadcrumb-dot fw-bold text-gray-600 fs-7 my-1">
                     <li class="breadcrumb-item text-gray-600">
                         <a href="/admin/dashboard" class="text-gray-600 text-hover-primary">Dashboard</a>
@@ -38,29 +38,26 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <input type="text" id="searchPartnerTable"
+                            <input type="text" id="searchtypePartnerTable"
                                 class="form-control form-control-solid w-250px ps-15" placeholder="Search..." />
                         </div>
                     </div>
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base" id="loading-add">
                             @can('created', ['/admin/masterdata/partner'])
-                                <button type="button" class="btn btn-primary me-3" onclick="addpartnersModal()">
-                                    Add partners</button>
+                                <button type="button" class="btn btn-primary me-3" onclick="addModal()">
+                                    Add Type Partner</button>
                             @endcan
                         </div>
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="partnerTable">
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="typePartnerTable">
                         <thead>
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                 <th class="min-w-20px">No</th>
-                                <th class="min-w-125px">Code</th>
                                 <th class="min-w-125px">Name</th>
-                                <th class="min-w-125px">Address</th>
-                                <th class="min-w-125px">Phone</th>
-                                <th class="min-w-125px">Email</th>
+                                <th class="">Status</th>
                                 <th class="min-w-70px">Action</th>
                             </tr>
                         </thead>
@@ -126,26 +123,14 @@
 
 @section('js')
     <script>
-        function infoModal(id) {
+        function addModal() {
             $('#loading-add').html(
                 '<div class="spinner-grow text-success" role="status"><span class="sr-only"></span></div>')
-            $.get("{{ url('/admin/masterdata/partner/info') }}/" + id, {}, function(data, status) {
+            $.get("{{ url('/admin/masterdata/partner/typepartner/create') }}", {}, function(data, status) {
                 $('#kontennya').html(data)
                 $('#mainmodal').modal('toggle')
                 $('#loading-add').html(
-                    '<button type="button" class="btn btn-primary me-3" id="add-btn" onclick="addpartnersModal()">Add partners</button>'
-                    )
-            })
-        }
-
-        function addpartnersModal() {
-            $('#loading-add').html(
-                '<div class="spinner-grow text-success" role="status"><span class="sr-only"></span></div>')
-            $.get("{{ url('/admin/masterdata/partner/create') }}", {}, function(data, status) {
-                $('#kontennya').html(data)
-                $('#mainmodal').modal('toggle')
-                $('#loading-add').html(
-                    '<button type="button" class="btn btn-primary me-3" id="add-btn" onclick="addpartnersModal()">Add partners</button>'
+                    '<button type="button" class="btn btn-primary me-3" id="add-btn" onclick="addModal()">Add Type</button>'
                     )
             })
         }
@@ -153,11 +138,11 @@
         function editModal(id) {
             $('#loading-add').html(
                 '<div class="spinner-grow text-success" role="status"><span class="sr-only"></span></div>')
-            $.get("{{ url('/admin/masterdata/partner/edit') }}/" + id, {}, function(data, status) {
+            $.get("{{ url('/admin/masterdata/partner/typepartner/edit') }}/" + id, {}, function(data, status) {
                 $('#kontennya').html(data)
                 $('#mainmodal').modal('toggle')
                 $('#loading-add').html(
-                    '<button type="button" class="btn btn-primary me-3" id="add-btn" onclick="addpartnersModal()">Add partners</button>'
+                    '<button type="button" class="btn btn-primary me-3" id="add-btn" onclick="addModal()">Add Type</button>'
                     )
             })
         }
@@ -168,35 +153,24 @@
         }
 
 
-        var partnerTable = $('#partnerTable').DataTable({
+        var typePartnerTable = $('#typePartnerTable').DataTable({
             serverside: true,
             processing: true,
             ajax: {
-                url: "{{ url('/admin/masterdata/partner/list') }}"
+                url: "{{ url('/admin/masterdata/partner/typepartner/list') }}"
             },
             columns: [{
                     data: 'DT_RowIndex',
                     searchable: false
                 },
-                {
-                    data: 'code',
-                    name: 'code'
-                },
+
                 {
                     data: 'name',
                     name: 'name'
                 },
                 {
-                    data: 'address',
-                    name: 'address'
-                },
-                {
-                    data: 'phone',
-                    name: 'phone'
-                },
-                {
-                    data: 'email',
-                    name: 'email'
+                    data: 'status',
+                    name: 'status'
                 },
                 {
                     data: 'action',
@@ -208,12 +182,12 @@
             "bInfo": false
         });
 
-        $('#searchPartnerTable').keyup(function() {
-            partnerTable.search($(this).val()).draw()
+        $('#searchtypePartnerTable').keyup(function() {
+            typePartnerTable.search($(this).val()).draw()
         });
 
 
-        $(document).on('click', '#deletepartners', function(e) {
+        $(document).on('click', '#deletetypepartner', function(e) {
             e.preventDefault();
 
 
@@ -249,9 +223,9 @@
                                 response.success,
                                 'success'
                             )
-                            partnerTable.ajax.reload(null, false);
+                            typePartnerTable.ajax.reload(null, false);
                             $('#loading-add').html(
-                                '<button type="button" class="btn btn-primary me-3" id="add-btn" onclick="addpartnersModal()">Add Partners</button>'
+                                '<button type="button" class="btn btn-primary me-3" id="add-btn" onclick="addModal()">Add Type</button>'
                                 )
                         }
                     })

@@ -34,6 +34,10 @@
     <link href="/assets/metronic/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="/assets/metronic/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+    @if (session('darkmode'))
+        <link href="/assets/metronic/plugins/global/plugins.dark.bundle.rtl.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/metronic/css/style.dark.bundle.rtl.css" rel="stylesheet" type="text/css" />
+    @endif
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -80,6 +84,16 @@
 		<script src="/assets/metronic/js/custom/modals/upgrade-plan.js"></script> --}}
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+
+
+    {{-- darkmode --}}
+    <script>
+        function darkmode() {
+            $.get("{{ url('/admin/darkmode') }}", {}, function(data, status) {
+                location.reload()
+            })
+        }
+    </script>
 
     {{-- Menu --}}
     @if (!session('menu'))

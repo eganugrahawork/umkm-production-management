@@ -64,6 +64,20 @@
                             </form>
                         </div>
                         <div class="separator my-2"></div>
+                        <div class="menu-item px-5">
+                            <div class="menu-content px-5">
+                                <label
+                                    class="form-check form-switch form-check-custom form-check-solid pulse pulse-success"
+                                    for="kt_user_menu_dark_mode_toggle">
+                                    <input class="form-check-input w-30px h-20px" type="checkbox" @if (session('darkmode'))
+                                        checked
+                                    @endif
+                                        name="mode" onclick="darkmode()" />
+                                    <span class="pulse-ring ms-n1"></span>
+                                    <span class="form-check-label text-gray-600 fs-7">Dark Mode</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     <!--end::Menu-->
                     <!--end::Menu wrapper-->
@@ -88,11 +102,11 @@
             <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch flex-grow-1"
                 id="kt_header_menu" data-kt-menu="true">
                 @if (session('menu'))
-                @php
-                    $x = session('menu')[0];
-                    echo $x;
-                @endphp
-            @endif
+                    @php
+                        $x = session('menu')[0];
+                        echo $x;
+                    @endphp
+                @endif
             </div>
             <!--end::Menu-->
             <!--begin::Actions-->

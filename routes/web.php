@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\Configuration\MenuAccessController;
 use App\Http\Controllers\Admin\Configuration\MenuController;
 use App\Http\Controllers\Admin\Configuration\RoleController;
 use App\Http\Controllers\Admin\Masterdata\Partner\PartnerController;
+use App\Http\Controllers\Admin\Masterdata\Partner\TypePartnerController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,6 +38,7 @@ Route::middleware('auth')->controller(MenuController::class)->group(function () 
     Route::post('/admin/menu/update', 'update');
     Route::get('/admin/menu/delete/{id}', 'destroy');
     Route::get('/admin/menu/loadmenu/{parent}/{role_id}', 'loadmenu');
+    Route::get('/admin/darkmode', 'darkmode');
 });
 
 Route::middleware('auth')->controller(RoleController::class)->group(function () {
@@ -65,6 +68,18 @@ Route::middleware('auth')->controller(PartnerController::class)->group(function 
     Route::get('admin/masterdata/partner/info', 'info');
     Route::get('admin/masterdata/partner/create', 'create');
     Route::post('admin/masterdata/partner/store', 'store');
-    Route::get('admin/masterdata/partner/edit', 'edit');
+    Route::post('admin/masterdata/partner/update', 'update');
+    Route::get('admin/masterdata/partner/edit/{id}', 'edit');
     Route::get('admin/masterdata/partner/delete/{id}', 'delete');
+    Route::get('admin/masterdata/partner/getcode/{id}', 'getcode');
+});
+
+Route::middleware('auth')->controller(TypePartnerController::class)->group(function () {
+    Route::get('admin/masterdata/partner/typepartner', 'index');
+    Route::get('admin/masterdata/partner/typepartner/list', 'list');
+    Route::get('admin/masterdata/partner/typepartner/create', 'create');
+    Route::post('admin/masterdata/partner/typepartner/store', 'store');
+    Route::post('admin/masterdata/partner/typepartner/update', 'update');
+    Route::get('admin/masterdata/partner/typepartner/edit/{id}', 'edit');
+    Route::get('admin/masterdata/partner/typepartner/delete/{id}', 'delete');
 });

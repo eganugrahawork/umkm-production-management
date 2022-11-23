@@ -130,4 +130,13 @@ class MenuController extends Controller {
 
         return response()->json($html);
     }
+
+    public function darkmode(){
+        if(session('darkmode')){
+            session()->forget('darkmode');
+        }else{
+            session()->push('darkmode','dark');
+        }
+        return response()->json('success');
+    }
 }

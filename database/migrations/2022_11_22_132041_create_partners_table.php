@@ -18,7 +18,7 @@ class CreatePartnersTable extends Migration
             $table->string('code')->unique();
             $table->string('name');
             $table->string('type_id');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('email')->unique();
             $table->string('address');
             $table->string('bank_name');

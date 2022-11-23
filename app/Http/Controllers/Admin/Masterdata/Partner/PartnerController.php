@@ -28,11 +28,62 @@ class PartnerController extends Controller {
             ->make(true);
     }
 
+    public function getcode(Request $request) {
+        $typepartner = TypePartner::where(['id' => $request->id])->first();
+        $partner = Partner::where(['type_id' => $request->id])->latest()->first();
+        if ($partner) {
+            $ujung = $partner->id + 1;
+            $code = $typepartner->name . '00' . $ujung;
+        } else {
+            $code = $typepartner->name . '001';
+        }
+
+        return response()->json(['code' => $code]);
+    }
+
     public function create() {
         return view('admin.masterdata.partner.create', ['typepartner' => TypePartner::all()]);
     }
 
     public function store(Request $request) {
-        dd($request);
+        Partner::create([
+            'code' => $request->code,
+            'name' => $request->name,
+            'type_id' => $request->type_id,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'address' => $request->address,
+            'bank_name' => $request->bank_name,
+            'bank_number' => $request->bank_number,
+            'status' => $request->status
+        ]);
+
+        return response()->json(['success' => 'Partner Added']);
+    }
+
+    public function edit(Request $request) {
+        return view('admin.masterdata.partner.edit', ['typepartner' => TypePartner::all(), 'partner' => Partner::where(['id' => $request->id])->first()]);
+    }
+
+    public function update(Request $request) {
+        // dd($request);
+        Partner::where(['id' => $request->id])->update([
+            'code' => $request->code,
+            'name' => $request->name,
+            'type_id' => $request->type_id,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'address' => $request->address,
+            'bank_name' => $request->bank_name,
+            'bank_number' => $request->bank_number,
+            'status' => $request->status
+        ]);
+
+        return response()->json(['success' => 'Partner Updated']);
+    }
+
+    public function delete(Request $request){
+        Partner::where(['id' => $request->id])->delete();
+        return response()->json(['success' => 'Partner Deleted']);
     }
 }
