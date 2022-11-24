@@ -57,9 +57,9 @@
                         </div>
                     </div>
                     <div id="variant">
-                        <div class="col-lg-fv-row mb-7">
+                        <div class="col-lg-6 fv-row mb-7">
                             <label class="required fw-bold fs-6 mb-2">Price (Hpp)</label>
-                            <input type="text" name="price" id="price"
+                            <input type="number" name="price" id="price"
                                 class="form-control form-control-solid mb-3 mb-lg-0" required />
                         </div>
                     </div>
@@ -68,13 +68,19 @@
         </div>
     </div>
 
+
     <div class="d-flex justify-content-end" id="loadingnya">
-        <button class="btn btn-sm btn-primary" id="btn-add">Add Item</button>
+        <div class="px-2">
+            <button type="button" class="btn btn-sm btn-secondary" onclick="tutupModal()">Close</button>
+        </div>
+        <div class="px-2">
+            <button class="btn btn-sm btn-primary" id="btn-add">Add Item</button>
+        </div>
     </div>
 </form>
 
 <script>
-    $('#add-form').on('submit', function(e) {
+    $('#btn-add').on('submit', function(e) {
         e.preventDefault();
 
         $('#btn-add').hide()

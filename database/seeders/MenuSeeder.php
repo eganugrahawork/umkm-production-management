@@ -75,14 +75,6 @@ class MenuSeeder extends Seeder
 
         Menu::create([
             'parent' => 7,
-            'name' => 'Item Type',
-            'url'=> '/admin/masterdata/item/type',
-            'icon'=> '-',
-            'status'=> 1
-        ]);
-
-        Menu::create([
-            'parent' => 7,
             'name' => 'Category',
             'url'=> '/admin/masterdata/item/category',
             'icon'=> '-',
