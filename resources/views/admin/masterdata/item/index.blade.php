@@ -56,8 +56,13 @@
                         <thead>
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                 <th class="min-w-20px">No</th>
-                                <th class="min-w-125px">Name</th>
-                                <th class="">Status</th>
+                                <th class="min-w-100px">Code</th>
+                                <th class="min-w-100px">Name</th>
+                                <th class="min-w-100px">Category</th>
+                                <th class="min-w-20px">Stock</th>
+                                <th class="min-w-20px">Qty Sales</th>
+                                <th class="min-w-70px">Total Sales</th>
+                                <th class="min-w-20px">Status</th>
                                 <th class="min-w-70px">Action</th>
                             </tr>
                         </thead>
@@ -141,8 +146,28 @@
                 },
 
                 {
+                    data: 'code',
+                    name: 'code'
+                },
+                {
                     data: 'name',
                     name: 'name'
+                },
+                {
+                    data: 'category_id',
+                    name: 'category_id'
+                },
+                {
+                    data: 'stock',
+                    name: 'stock'
+                },
+                {
+                    data: 'qty_sales',
+                    name: 'qty_sales'
+                },
+                {
+                    data: 'total_sales',
+                    name: 'total_sales'
                 },
                 {
                     data: 'status',
