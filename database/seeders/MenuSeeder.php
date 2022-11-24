@@ -56,5 +56,37 @@ class MenuSeeder extends Seeder
             'icon'=> '-',
             'status'=> 1
         ]);
+
+        Menu::create([
+            'parent' => 3,
+            'name' => 'Items',
+            'url'=> '/admin/masterdata/item',
+            'icon'=> 'box',
+            'status'=> 1
+        ]);
+
+        Menu::create([
+            'parent' => 7,
+            'name' => 'Item List',
+            'url'=> '/admin/masterdata/item',
+            'icon'=> '-',
+            'status'=> 1
+        ]);
+
+        Menu::create([
+            'parent' => 7,
+            'name' => 'Item Type',
+            'url'=> '/admin/masterdata/item/type',
+            'icon'=> '-',
+            'status'=> 1
+        ]);
+
+        Menu::create([
+            'parent' => 7,
+            'name' => 'Category',
+            'url'=> '/admin/masterdata/item/category',
+            'icon'=> '-',
+            'status'=> 1
+        ]);
     }
 }

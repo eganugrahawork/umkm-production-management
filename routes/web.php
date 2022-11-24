@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Configuration\MenuAccessController;
 use App\Http\Controllers\Admin\Configuration\MenuController;
 use App\Http\Controllers\Admin\Configuration\RoleController;
+use App\Http\Controllers\Admin\Masterdata\Item\ItemController;
 use App\Http\Controllers\Admin\Masterdata\Partner\PartnerController;
 use App\Http\Controllers\Admin\Masterdata\Partner\TypePartnerController;
 use Illuminate\Support\Facades\Route;
@@ -83,3 +84,14 @@ Route::middleware('auth')->controller(TypePartnerController::class)->group(funct
     Route::get('admin/masterdata/partner/typepartner/edit/{id}', 'edit');
     Route::get('admin/masterdata/partner/typepartner/delete/{id}', 'delete');
 });
+
+Route::middleware('auth')->controller(ItemController::class)->group(function () {
+    Route::get('admin/masterdata/item', 'index');
+    Route::get('admin/masterdata/item/list', 'list');
+    Route::get('admin/masterdata/item/create', 'create');
+    Route::post('admin/masterdata/item/store', 'store');
+    Route::post('admin/masterdata/item/update', 'update');
+    Route::get('admin/masterdata/item/edit/{id}', 'edit');
+    Route::get('admin/masterdata/item/delete/{id}', 'delete');
+});
+
