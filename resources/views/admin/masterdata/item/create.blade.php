@@ -4,7 +4,7 @@
         <div class="col-lg-3">
             <div class="card card-bordered">
                 <div class="card-header bg-info">
-                    <h3 class="card-title text-white">Information</h3>
+                    <h3 class="card-title text-white">Information <i class="bi bi-lightbulb"></i></h3>
                     <div class="card-toolbar">
 
                     </div>
@@ -21,27 +21,26 @@
             </div>
         </div>
         <div class="col-lg-9">
-            <div class="fv-row mb-7">
+            <div class="fv-row mb-7 col-lg-8">
                 <label class="required fw-bold fs-6 mb-2">Code</label>
                 <input type="text" name="code" id="code" readonly
                     class="form-control form-control-solid mb-3 mb-lg-0" required />
             </div>
-            <div class="fv-row mb-7">
+            <div class="fv-row mb-7 col-lg-8">
                 <label class="required fw-bold fs-6 mb-2">Name</label>
                 <input type="text" name="name" id="name" class="form-control form-control-solid mb-3 mb-lg-0"
                     required />
             </div>
-            <div class="fv-row mb-7">
+            <div class="fv-row mb-7 col-lg-8">
                 <label class="required form-label fw-bold">Category</label>
                 <select class="form-select  form-select-solid mb-3 mb-lg-0" name="category_id" id="category_id"
                     required>
                     <option>Choose Category</option>
                 </select>
             </div>
-            <div class="fv-row mb-7">
+            <div class="fv-row mb-7 col-lg-8">
                 <label class="required fw-bold fs-6 mb-2">Description</label>
-                <input type="text" name="name" id="name" class="form-control form-control-solid mb-3 mb-lg-0"
-                    required />
+                <textarea name="description" class="form-control form-control-solid mb-3 mb-lg-0" id="" cols="30" rows="5"></textarea>
             </div>
             <div class="row">
                 <div class="col-lg-6">
@@ -60,7 +59,7 @@
                     <div id="variant">
                         <div class="col-lg-fv-row mb-7">
                             <label class="required fw-bold fs-6 mb-2">Price (Hpp)</label>
-                            <input type="text" name="name" id="name"
+                            <input type="text" name="price" id="price"
                                 class="form-control form-control-solid mb-3 mb-lg-0" required />
                         </div>
                     </div>

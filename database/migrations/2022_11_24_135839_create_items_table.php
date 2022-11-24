@@ -20,6 +20,7 @@ class CreateItemsTable extends Migration
             $table->integer('category_id');
             $table->integer('stock')->default(0);
             // $table->integer('cogs')->default(0)->comment('Harga Pokok'); // nanti dimasukin di varian, kalau tidak ada varian keterangan divariannya 0 tapi haranya dimasukin
+            $table->integer('description')->default(0);
             $table->integer('qty_sales')->default(0);
             $table->integer('total_sales')->default(0);
             $table->integer('status')->default(1);
