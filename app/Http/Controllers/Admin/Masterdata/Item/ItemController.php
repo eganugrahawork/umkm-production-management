@@ -32,6 +32,7 @@ class ItemController extends Controller
     }
 
     public function store(Request $request) {
+        dd($request);
         TypePartner::create([
             'name' => $request->name,
             'status' => $request->status
