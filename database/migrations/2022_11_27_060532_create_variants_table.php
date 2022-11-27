@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItemsTable extends Migration
+class CreateVariantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('variants', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->string('name');
-            $table->integer('category_id');
-            $table->string('description')->default('-');
-            $table->integer('stock')->default(0);
+            $table->integer('item_id');
+            $table->integer('parent')->default(0);
+            $table->string('name')->default('-');
             $table->double('qty_receive')->default(0);
             $table->double('total_receive')->default(0);
             $table->double('qty_sales')->default(0);
@@ -36,6 +34,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('variants');
     }
 }

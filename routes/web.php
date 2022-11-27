@@ -96,6 +96,7 @@ Route::middleware('auth')->controller(ItemController::class)->group(function () 
     Route::post('admin/masterdata/item/update', 'update');
     Route::get('admin/masterdata/item/edit/{id}', 'edit');
     Route::get('admin/masterdata/item/delete/{id}', 'delete');
+    Route::get('admin/masterdata/item/getcode', 'getcode');
 });
 
 Route::middleware('auth')->controller(ItemCategoryController::class)->group(function () {

@@ -29,14 +29,17 @@
             </div>
             <div class="fv-row mb-7 col-lg-8">
                 <label class="required fw-bold fs-6 mb-2">Name</label>
-                <input type="text" name="name" id="name" class="form-control form-control-solid mb-3 mb-lg-0"
+                <input type="text" name="name" id="name" onchange="getCode()" class="form-control form-control-solid mb-3 mb-lg-0"
                     required />
             </div>
             <div class="fv-row mb-7 col-lg-8">
                 <label class="required form-label fw-bold">Category</label>
-                <select class="form-select  form-select-solid mb-3 mb-lg-0" name="category_id" id="category_id"
+                <select class="form-select  form-select-solid mb-3 mb-lg-0 select-2" onchange="getCode()" name="category_id" id="category_id"
                     required>
-                    <option>Choose Category</option>
+                    @foreach ($category as $ct)
+
+                    <option value="{{ $ct->id }}">{{ $ct->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="fv-row mb-7 col-lg-8">
@@ -86,9 +89,10 @@
 </form>
 
 <script>
+    $('.select-2').select2();
     var infoVarian1 = false;
     var infoVarian2 = false;
-    $('#btn-add').on('click', function(e) {
+    $('#add-form').on('submit', function(e) {
         e.preventDefault();
 
         $('#btn-add').hide()
@@ -113,29 +117,18 @@
         })
     });
 
-    $('#type_id').on('change', function() {
-        var type_id = $('#type_id').val()
-        $.ajax({
-            type: 'get',
-            url: "{{ url('/admin/masterdata/partner/getcode') }}/" + type_id,
-            dataType: 'json',
-            success: function(response) {
-                console.log(response);
-                $('#code').val(response.code);
-            }
-        })
-    });
 
     function unActiveVariant() {
         var unvariant =
             '<div class="row"><div class="col-lg-6"><div class="fv-row mb-7"> <div class="row"><div class="col-lg-3"> <p class="fw-bold fs-6 mb-2">Variant : </p> </div> <div class="col-lg-9"><button type="button" class="btn btn-sm btn-outline btn-outline-dashed btn-outline-info btn-active-light-info" onclick="activeVariant()"><i class="bi bi-plus-circle-dotted"></i>Variant</button> </div> </div> </div> <div id="variant"> <div class="col-lg-6 fv-row mb-7"><label class="required fw-bold fs-6 mb-2">Price (Hpp)</label> <input type="number" name="price" id="price" class="form-control form-control-solid mb-3 mb-lg-0" required /> </div></div> </div></div>';
         $('#tableVarian').remove()
         $('#activeVariant').html(unvariant);
+        infoVarian2 =false;
     }
 
     function activeVariant() {
         var variant =
-            '<div class="fv-row mb-7"><div class="row"><div class="col-lg-1"><p class="fw-bold fs-6 mb-2">Variant : </p></div><div class="col-lg-11 bg-gray-100 rounded py-4"><div class="fv-row mb-7 col-lg-6"><label class="required fw-bold fs-6 mb-2">Variant 1</label><div class="col-lg-4"><input type="text" name="variant1" id="variant1" onchange="coloumnDetailVarian(this)" class="form-control form-control-white mb-3 mb-lg-0" required /></div></div><div class="row"><label class="required fw-bold fs-6 mb-2">Option</label><div class="row" id="optionrow"><div class="fv-row mb-7 col-lg-3"><input type="text" name="option[]" onchange="addOptionRow()" id="option" class="form-control form-control-white mb-3 mb-lg-0 option-varian1" required /></div></div></div><div class="fv-row mb-7 row" id="variant2Content"><label class="required fw-bold fs-6 mb-2">Variant 2</label><div class="col-lg-3"><button type="button" onclick="activeVariant2()" class="btn btn-sm btn-outline btn-outline-dashed btn-outline-info btn-active-light-info"><i class="bi bi-plus-circle-dotted"></i>Active</button></div></div></div> </div><div class="d-flex justify-content-end"><button class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" onclick="unActiveVariant()">Cancel Variant</div></div> </div>';
+            '<div class="fv-row mb-7"><div class="row"><div class="col-lg-1"><p class="fw-bold fs-6 mb-2">Variant : </p></div><div class="col-lg-11 bg-gray-100 rounded py-4"><div class="fv-row mb-7 col-lg-6"><label class="required fw-bold fs-6 mb-2">Variant 1</label><div class="col-lg-4"><input type="text" name="variant1" id="variant1" onchange="coloumnDetailVarian(this)" class="form-control form-control-white mb-3 mb-lg-0" required /></div></div><div class="row"><label class="required fw-bold fs-6 mb-2">Option</label><div class="row" id="optionrow"><div class="fv-row mb-7 col-lg-3"><input type="text" name="option1[]" onchange="addOptionRow()" id="option" class="form-control form-control-white mb-3 mb-lg-0 option-varian1" required /></div></div></div><div class="fv-row mb-7 row" id="variant2Content"><label class="required fw-bold fs-6 mb-2">Variant 2</label><div class="col-lg-3"><button type="button" onclick="activeVariant2()" class="btn btn-sm btn-outline btn-outline-dashed btn-outline-info btn-active-light-info"><i class="bi bi-plus-circle-dotted"></i>Active</button></div></div></div> </div><div class="d-flex justify-content-end"><button class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger" onclick="unActiveVariant()">Cancel Variant</div></div> </div>';
 
         var table =
             '  <div class="py-4 col-lg-8" id="tableVarian"> <div class="fv-row mb-7 col-lg-6"><label class="fw-bold fs-6 mb-2">Price for All</label> <div class="input-group"> <input type="text"  id="priceForAll" class="form-control form-control-solid mb-3 mb-lg-0" /> <button type="button" class="btn btn-sm btn-primary input-group-text" onclick="changeAllPrice()">Change</button> </div> </div> <table class="table table-row-dashed fs-6 gy-5"><thead><tr id="coloumnDetailVarian" class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0"><th>Price</th></tr></thead><tbody id="contentTable"></tbody></table></div>'
@@ -145,7 +138,7 @@
 
     function addOptionRow() {
         var option =
-            '<div class="fv-row mb-7 col-lg-3"><div class="input-group"><input type="text" name="option[]" onchange="addOptionRow()" id="option"class="form-control form-control-white mb-3 mb-lg-0 option-varian1" required /><button type="button" class="btn btn-sm btn-icon btn-danger input-group-text" onclick="deleteOptionRow(this)"><i class="bi bi-trash"></i></button></div></div>'
+            '<div class="fv-row mb-7 col-lg-3"><div class="input-group"><input type="text" name="option1[]" onchange="addOptionRow()" id="option"class="form-control form-control-white mb-3 mb-lg-0 option-varian1" required /><button type="button" class="btn btn-sm btn-icon btn-danger input-group-text" onclick="deleteOptionRow(this)"><i class="bi bi-trash"></i></button></div></div>'
         $('#optionrow').append(option)
         addRowColoumn()
     }
@@ -180,7 +173,7 @@
 
     function addRowColoumn() {
         var isi = '';
-        if (infoVarian2 == true) {
+        if (infoVarian2 === true) {
             $('.option-varian1').each(function() {
                 isi += '<tr><td>' + $(this).val() +
                     '</td><td>';
@@ -209,4 +202,19 @@
             $(this).val($('#priceForAll').val())
         })
     }
+
+    function getCode(){
+        var theCode = $('#name').val().replace(' ', '-');
+
+        $.ajax({
+            type: 'get',
+            url: "{{ url('/admin/masterdata/item/getcode') }}",
+            dataType: 'json',
+            success: function(response) {
+              theCode = theCode+'-'+response.code;
+                $('#code').val(theCode);
+            }
+        })
+    }
+
 </script>
