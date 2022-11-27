@@ -23,6 +23,7 @@ class CreateVariantsTable extends Migration
             $table->double('qty_sales')->default(0);
             $table->double('total_sales')->default(0);
             $table->integer('status')->default(1);
+            $table->integer('have_variant')->default(1)->comment('0 is not have, 1 is have');
             $table->timestamps();
         });
     }

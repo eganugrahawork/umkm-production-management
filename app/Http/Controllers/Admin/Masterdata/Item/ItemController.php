@@ -8,6 +8,7 @@ use App\Models\ItemCategory;
 use App\Models\Variant;
 use App\Models\VariantOption;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\DataTables;
 
@@ -16,7 +17,7 @@ class ItemController extends Controller {
         return view('admin.masterdata.item.index');
     }
     public function list() {
-        return DataTables::of(Item::all())->addIndexColumn()
+        return DataTables::of(DB::select('SELECT a.*, b.name AS category_name FROM items a JOIN item_categories b ON a.category_id = b.id'))->addIndexColumn()
             ->addColumn('action', function ($model) {
                 $action = "";
                 if (Gate::allows('updated', ['/admin/masterdata/item'])) {
@@ -56,14 +57,15 @@ class ItemController extends Controller {
             ])->id;
 
             $idVariant = Variant::create([
-                'item_id' => $idItem
+                'item_id' => $idItem,
+                'have_variant' => 0
             ])->id;
 
 
 
             VariantOption::create([
                 'variant_id' => $idVariant,
-                'price' => $request->price,
+                'price' => $request->price
             ]);
         } else {
             $idItem = Item::create([
@@ -121,7 +123,30 @@ class ItemController extends Controller {
     }
 
     public function edit(Request $request) {
-        return view('admin.masterdata.partner.typepartner.edit', ['typepartner' => TypePartner::where(['id' => $request->id])->first()]);
+        $item = Item::where(['id' => $request->id])->first();
+
+        $variant = Variant::where(['item_id' => $item->id])->first();
+        $variant2 = Variant::where(['item_id' => $item->id, 'parent' => $variant->id])->first();
+
+        if ($variant2) {
+            $is_variant = 2;
+            // $detail_item['variant1'] =
+        } else {
+            $is_variant = 1;
+            $detail_item = DB::select("SELECT b.`variant_id`, a.name AS variant_name, b.`id` AS option_id, b.`name` AS option_name, b.price
+            FROM variants a
+            JOIN variant_options b ON a.id = b.variant_id
+            WHERE a.item_id = $item->id");
+        }
+
+        if ($variant->have_variant === 0) {
+            $is_variant = 0;
+            $detail_item = DB::select('SELECT b.`variant_id`, b.`id` AS option_id, b.price FROM variants a JOIN variant_options b ON a.id = b.variant_id WHERE a.item_id = ' . $item->id);
+        }
+
+        // dd($detail_item);
+
+        return view('admin.masterdata.item.edit', ['item' => Item::where(['id' => $request->id])->first(), 'category' => ItemCategory::all(), 'is_variant' => $is_variant,  'detail_item' => $detail_item]);
     }
 
     public function update(Request $request) {
