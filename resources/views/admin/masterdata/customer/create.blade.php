@@ -103,8 +103,7 @@
             url: "{{ url('/admin/masterdata/customer/getcode') }}/" + type_id,
             dataType: 'json',
             success: function(response) {
-                console.log(response);
-                $('#code').val(response.code);
+                $('#code').val(response.code.split(' ').join('-'));
             }
         })
     });

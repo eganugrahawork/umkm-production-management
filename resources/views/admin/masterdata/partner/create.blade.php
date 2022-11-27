@@ -5,7 +5,7 @@
         <div class="fv-row mb-7">
             <label class="required form-label fw-bold">Partner Type</label>
             <div class="col-lg-8">
-                <select class="form-select  form-select-solid mb-3 mb-lg-0" name="type_id" id="type_id" required>
+                <select class="form-select  form-select-solid mb-3 mb-lg-0 select-2" name="type_id" id="type_id" required>
                     <option value="">Choose First</option>
                     @foreach ($typepartner as $pt)
                     <option value="{{ $pt->id }}">{{ $pt->name }}</option>
@@ -19,7 +19,7 @@
         </div>
         <div class="fv-row mb-7">
             <label class="required fw-bold fs-6 mb-2">Name</label>
-            <input type="text" name="name" id="name" class="form-control form-control-solid mb-3 mb-lg-0"  required/>
+            <input type="text" name="name" id="name" class="form-control form-control-solid mb-3 mb-lg-0" onchange="changeCode()"  required/>
         </div>
         <div class="fv-row mb-7">
             <label class="required fw-bold fs-6 mb-2">Email</label>
@@ -64,6 +64,8 @@
     </form>
 
     <script>
+        $('.select-2').select2()
+
         $('#add-form').on('submit', function(e){
             e.preventDefault();
 
@@ -96,16 +98,16 @@
         }
         });
 
-        $('#type_id').on('change', function(){
-            var type_id = $('#type_id').val()
+        function changeCode(){
+            var code = $('#name').val().split(' ').join('-')
             $.ajax({
                 type:'get',
-                url: "{{ url('/admin/masterdata/partner/getcode') }}/"+type_id,
+                url: "{{ url('/admin/masterdata/partner/getcode') }}",
                 dataType: 'json',
                 success:function(response){
-                    console.log(response);
-                    $('#code').val(response.code);
+                    code = code + response.code
+                    $('#code').val(code);
                 }
             })
-        });
+        };
     </script>

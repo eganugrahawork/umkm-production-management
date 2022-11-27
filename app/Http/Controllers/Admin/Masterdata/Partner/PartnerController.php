@@ -29,13 +29,12 @@ class PartnerController extends Controller {
     }
 
     public function getcode(Request $request) {
-        $typepartner = TypePartner::where(['id' => $request->id])->first();
-        $partner = Partner::where(['type_id' => $request->id])->latest()->first();
+        $partner = Partner::latest()->first();
         if ($partner) {
             $ujung = $partner->id + 1;
-            $code = $typepartner->name . '00' . $ujung;
+            $code = '00' . $ujung;
         } else {
-            $code = $typepartner->name . '001';
+            $code = '001';
         }
 
         return response()->json(['code' => $code]);

@@ -21,7 +21,7 @@
         </div>
         <div class="fv-row mb-7">
             <label class="required fw-bold fs-6 mb-2">Name</label>
-            <input type="text" name="name" id="name" value="{{ $partner->name }}" class="form-control form-control-solid mb-3 mb-lg-0"  required/>
+            <input type="text" name="name" id="name" value="{{ $partner->name }}" onchange="changeCode()" class="form-control form-control-solid mb-3 mb-lg-0"  required/>
         </div>
         <div class="fv-row mb-7">
             <label class="required fw-bold fs-6 mb-2">Email</label>
@@ -91,5 +91,16 @@
 
         });
 
-
+        function changeCode(){
+            var code = $('#name').val().split(' ').join('-')
+            $.ajax({
+                type:'get',
+                url: "{{ url('/admin/masterdata/partner/getcode') }}",
+                dataType: 'json',
+                success:function(response){
+                    code = code + response.code
+                    $('#code').val(code);
+                }
+            })
+        };
     </script>

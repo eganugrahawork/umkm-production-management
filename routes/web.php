@@ -75,7 +75,7 @@ Route::middleware('auth')->controller(PartnerController::class)->group(function 
     Route::post('admin/masterdata/partner/update', 'update');
     Route::get('admin/masterdata/partner/edit/{id}', 'edit');
     Route::get('admin/masterdata/partner/delete/{id}', 'delete');
-    Route::get('admin/masterdata/partner/getcode/{id}', 'getcode');
+    Route::get('admin/masterdata/partner/getcode', 'getcode');
 });
 
 Route::middleware('auth')->controller(TypePartnerController::class)->group(function () {

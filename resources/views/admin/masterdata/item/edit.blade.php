@@ -1,4 +1,4 @@
-<form id="add-form">
+<form id="update-form">
     @csrf
     <div class="row">
         <div class="col-lg-3">
@@ -186,18 +186,18 @@
     $('.select-2').select2();
     var infoVarian1 = false;
     var infoVarian2 = false;
-    $('#add-form').on('submit', function(e) {
+    $('#update-form').on('submit', function(e) {
         e.preventDefault();
 
         $('#btn-add').hide()
         $('#loadingnya').html(
             '<div class="spinner-grow text-success" role="status"><span class="sr-only"></span></div>')
 
-        var form = $('#add-form')
+        var form = $('#update-form')
         $.ajax({
             type: "POST",
             url: "{{ url('/admin/masterdata/item/store') }}",
-            data: $('#add-form').serialize(),
+            data: $('#update-form').serialize(),
             dataType: 'json',
             success: function(response) {
                 Swal.fire(
