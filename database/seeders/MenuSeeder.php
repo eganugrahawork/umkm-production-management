@@ -80,5 +80,28 @@ class MenuSeeder extends Seeder
             'icon'=> '-',
             'status'=> 1
         ]);
+        Menu::create([
+            'parent' => 3,
+            'name' => 'Customer',
+            'url'=> '/admin/masterdata/customer',
+            'icon'=> 'shop',
+            'status'=> 1
+        ]);
+
+        Menu::create([
+            'parent' => 10,
+            'name' => 'Customer List',
+            'url'=> '/admin/masterdata/customer',
+            'icon'=> '-',
+            'status'=> 1
+        ]);
+
+        Menu::create([
+            'parent' => 10,
+            'name' => 'Customer Type',
+            'url'=> '/admin/masterdata/customer/type',
+            'icon'=> '-',
+            'status'=> 1
+        ]);
     }
 }

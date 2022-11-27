@@ -75,5 +75,26 @@ class MenuAccessSeeder extends Seeder
             'updated'=> 1,
             'deleted'=> 1
         ]);
+        MenuAccess::create([
+            'role_id' => 1,
+            'menu_id'=> 11,
+            'created'=> 1,
+            'updated'=> 1,
+            'deleted'=> 1
+        ]);
+        MenuAccess::create([
+            'role_id' => 1,
+            'menu_id'=> 12,
+            'created'=> 1,
+            'updated'=> 1,
+            'deleted'=> 1
+        ]);
+        MenuAccess::create([
+            'role_id' => 1,
+            'menu_id'=> 13,
+            'created'=> 1,
+            'updated'=> 1,
+            'deleted'=> 1
+        ]);
     }
 }

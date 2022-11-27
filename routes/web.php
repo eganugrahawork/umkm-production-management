@@ -4,6 +4,9 @@ use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Configuration\MenuAccessController;
 use App\Http\Controllers\Admin\Configuration\MenuController;
 use App\Http\Controllers\Admin\Configuration\RoleController;
+use App\Http\Controllers\Admin\Masterdata\Customer\CustomerController;
+use App\Http\Controllers\Admin\Masterdata\Customer\CustomerTypeController;
+use App\Http\Controllers\Admin\Masterdata\Item\ItemCategoryController;
 use App\Http\Controllers\Admin\Masterdata\Item\ItemController;
 use App\Http\Controllers\Admin\Masterdata\Partner\PartnerController;
 use App\Http\Controllers\Admin\Masterdata\Partner\TypePartnerController;
@@ -94,4 +97,35 @@ Route::middleware('auth')->controller(ItemController::class)->group(function () 
     Route::get('admin/masterdata/item/edit/{id}', 'edit');
     Route::get('admin/masterdata/item/delete/{id}', 'delete');
 });
+
+Route::middleware('auth')->controller(ItemCategoryController::class)->group(function () {
+    Route::get('admin/masterdata/item/category', 'index');
+    Route::get('admin/masterdata/item/category/list', 'list');
+    Route::get('admin/masterdata/item/category/create', 'create');
+    Route::post('admin/masterdata/item/category/store', 'store');
+    Route::post('admin/masterdata/item/category/update', 'update');
+    Route::get('admin/masterdata/item/category/edit/{id}', 'edit');
+    Route::get('admin/masterdata/item/category/delete/{id}', 'delete');
+});
+
+Route::middleware('auth')->controller(CustomerController::class)->group(function () {
+    Route::get('admin/masterdata/customer', 'index');
+    Route::get('admin/masterdata/customer/list', 'list');
+    Route::get('admin/masterdata/customer/create', 'create');
+    Route::post('admin/masterdata/customer/store', 'store');
+    Route::post('admin/masterdata/customer/update', 'update');
+    Route::get('admin/masterdata/customer/edit/{id}', 'edit');
+    Route::get('admin/masterdata/customer/delete/{id}', 'delete');
+});
+
+Route::middleware('auth')->controller(CustomerTypeController::class)->group(function () {
+    Route::get('admin/masterdata/customer/type', 'index');
+    Route::get('admin/masterdata/customer/type/list', 'list');
+    Route::get('admin/masterdata/customer/type/create', 'create');
+    Route::post('admin/masterdata/customer/type/store', 'store');
+    Route::post('admin/masterdata/customer/type/update', 'update');
+    Route::get('admin/masterdata/customer/type/edit/{id}', 'edit');
+    Route::get('admin/masterdata/customer/type/delete/{id}', 'delete');
+});
+
 

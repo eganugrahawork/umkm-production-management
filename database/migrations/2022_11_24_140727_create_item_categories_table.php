@@ -16,8 +16,8 @@ class CreateItemCategoriesTable extends Migration
         Schema::create('item_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('qty_sales')->default(0);
-            $table->string('total_sales')->default(0);
+            $table->double('qty_sales')->default(0);
+            $table->double('total_sales')->default(0);
             $table->string('status');
             $table->timestamps();
         });
