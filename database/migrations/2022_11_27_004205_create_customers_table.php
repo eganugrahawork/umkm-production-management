@@ -22,7 +22,7 @@ class CreateCustomersTable extends Migration
             $table->string('email');
             $table->string('address');
             $table->string('bank_name');
-            $table->integer('bank_number');
+            $table->string('bank_number');
             $table->double('qty_sales')->default(0);
             $table->double('total_sales')->default(0);
             $table->integer('status');

@@ -56,12 +56,12 @@
                         <thead>
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                 <th class="min-w-20px">No</th>
-                                <th class="min-w-125px">Code</th>
-                                <th class="min-w-125px">Name</th>
-                                <th class="min-w-125px">Type</th>
-                                <th class="min-w-125px">Address</th>
-                                <th class="min-w-125px">Phone</th>
-                                <th class="min-w-125px">Email</th>
+                                <th class="min-w-50px">Code</th>
+                                <th class="min-w-50px">Name</th>
+                                <th class="min-w-50px">Type</th>
+                                <th class="min-w-50px">Address</th>
+                                <th class="min-w-50px">Phone</th>
+                                <th class="min-w-50px">Email</th>
                                 <th class="min-w-70px">Action</th>
                             </tr>
                         </thead>
@@ -107,7 +107,7 @@
         function infoModal(id) {
             $('#loading-add').html(
                 '<div class="spinner-grow text-success" role="status"><span class="sr-only"></span></div>')
-            $.get("{{ url('/admin/masterdata/partner/info') }}/" + id, {}, function(data, status) {
+            $.get("{{ url('/admin/masterdata/customer/info') }}/" + id, {}, function(data, status) {
                 $('#kontennya').html(data)
                 $('#mainmodal').modal('toggle')
                 $('#loading-add').html(
@@ -119,7 +119,7 @@
         function addModal() {
             $('#loading-add').html(
                 '<div class="spinner-grow text-success" role="status"><span class="sr-only"></span></div>')
-            $.get("{{ url('/admin/masterdata/partner/create') }}", {}, function(data, status) {
+            $.get("{{ url('/admin/masterdata/customer/create') }}", {}, function(data, status) {
                 $('#kontennya').html(data)
                 $('#mainmodal').modal('toggle')
                 $('#loading-add').html(
@@ -131,7 +131,7 @@
         function editModal(id) {
             $('#loading-add').html(
                 '<div class="spinner-grow text-success" role="status"><span class="sr-only"></span></div>')
-            $.get("{{ url('/admin/masterdata/partner/edit') }}/" + id, {}, function(data, status) {
+            $.get("{{ url('/admin/masterdata/customer/edit') }}/" + id, {}, function(data, status) {
                 $('#kontennya').html(data)
                 $('#mainmodal').modal('toggle')
                 $('#loading-add').html(
@@ -165,6 +165,10 @@
                     name: 'name'
                 },
                 {
+                    data: 'type_id',
+                    name: 'type_id'
+                },
+                {
                     data: 'address',
                     name: 'address'
                 },
@@ -191,7 +195,7 @@
         });
 
 
-        $(document).on('click', '#deletecustomer', function(e) {
+        $(document).on('click', '#deletecustomertype', function(e) {
             e.preventDefault();
 
 

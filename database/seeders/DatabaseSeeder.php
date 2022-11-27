@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
                 RoleSeeder::class,
                 MenuSeeder::class,
                 MenuAccessSeeder::class,
-                TypePartnerSeeder::class
+                TypePartnerSeeder::class,
+                CustomerTypeSeeder::class,
+                ItemCategorySeeder::class
             ]
             );
     }

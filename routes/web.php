@@ -116,6 +116,7 @@ Route::middleware('auth')->controller(CustomerController::class)->group(function
     Route::post('admin/masterdata/customer/update', 'update');
     Route::get('admin/masterdata/customer/edit/{id}', 'edit');
     Route::get('admin/masterdata/customer/delete/{id}', 'delete');
+    Route::get('admin/masterdata/customer/getcode/{id}', 'getcode');
 });
 
 Route::middleware('auth')->controller(CustomerTypeController::class)->group(function () {
@@ -126,6 +127,7 @@ Route::middleware('auth')->controller(CustomerTypeController::class)->group(func
     Route::post('admin/masterdata/customer/type/update', 'update');
     Route::get('admin/masterdata/customer/type/edit/{id}', 'edit');
     Route::get('admin/masterdata/customer/type/delete/{id}', 'delete');
+
 });
 
 
