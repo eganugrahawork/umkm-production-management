@@ -130,7 +130,13 @@ class ItemController extends Controller {
 
         if ($variant2) {
             $is_variant = 2;
-            // $detail_item['variant1'] =
+            $detail_item['variant1'] = DB::select("SELECT b.`variant_id`, a.name AS variant_name, b.`id` AS option_id, b.`name` AS option_name, b.price
+            FROM variants a
+            JOIN variant_options b ON a.id = b.variant_id
+            WHERE a.item_id = $item->id AND b.parent = 0");
+
+            // $detail_item
+
         } else {
             $is_variant = 1;
             $detail_item = DB::select("SELECT b.`variant_id`, a.name AS variant_name, b.`id` AS option_id, b.`name` AS option_name, b.price
@@ -150,17 +156,13 @@ class ItemController extends Controller {
     }
 
     public function update(Request $request) {
-        // dd($request);
-        TypePartner::where(['id' => $request->id])->update([
-            'name' => $request->name,
-            'status' => $request->status
-        ]);
+
 
         return response()->json(['success' => 'Type Partner Updated']);
     }
 
     public function delete(Request $request) {
-        TypePartner::where(['id' => $request->id])->delete();
+
         return response()->json(['success' => 'Type Partner Deleted']);
     }
 }
