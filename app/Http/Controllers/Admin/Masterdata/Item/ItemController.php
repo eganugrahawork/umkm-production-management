@@ -130,12 +130,13 @@ class ItemController extends Controller {
 
         if ($variant2) {
             $is_variant = 2;
-            $detail_item['variant1'] = DB::select("SELECT b.`variant_id`, a.name AS variant_name, b.`id` AS option_id, b.`name` AS option_name, b.price
+            $detail_item['variant_1'] = DB::select("SELECT b.`variant_id`, a.name AS variant_name, b.`id` AS option_id, b.`name` AS option_name, b.price
             FROM variants a
             JOIN variant_options b ON a.id = b.variant_id
-            WHERE a.item_id = $item->id AND b.parent = 0");
+            WHERE a.item_id = $item->id and b.parent =0");
 
-            // $detail_item
+            $detail_item['variant_2'] = VariantOption::select('variant_options.name as option_name', 'variant_options.id as option_id','variant_options.price','variants.name as variant_name', 'variants.id as variant_id')->where('variant_options.parent', $detail_item['variant_1'][0]->option_id)->join('variants','variant_options.variant_id', '=', 'variants.id')->get();
+
 
         } else {
             $is_variant = 1;
@@ -156,7 +157,7 @@ class ItemController extends Controller {
     }
 
     public function update(Request $request) {
-
+dd($request);
 
         return response()->json(['success' => 'Type Partner Updated']);
     }

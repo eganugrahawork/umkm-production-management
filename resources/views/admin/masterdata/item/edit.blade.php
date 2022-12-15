@@ -31,13 +31,13 @@
             </div>
             <div class="fv-row mb-7 col-lg-8">
                 <label class="required fw-bold fs-6 mb-2">Name</label>
-                <input type="text" name="name" id="name" onchange="getCode()" value="{{ $item->name }}"
+                <input type="text" name="name" id="name" value="{{ $item->name }}"
                     class="form-control form-control-solid mb-3 mb-lg-0" required />
             </div>
             <div class="fv-row mb-7 col-lg-8">
                 <label class="required form-label fw-bold">Category</label>
-                <select class="form-select  form-select-solid mb-3 mb-lg-0 select-2" onchange="getCode()"
-                    name="category_id" id="category_id" required>
+                <select class="form-select  form-select-solid mb-3 mb-lg-0 select-2" name="category_id" id="category_id"
+                    required>
                     @foreach ($category as $ct)
                         <option value="{{ $ct->id }}" {{ $item->category_id == $ct->id ? 'selected' : '' }}>
                             {{ $ct->name }}</option>
@@ -93,11 +93,13 @@
                                 <div class="fv-row mb-7 col-lg-6"><label class="required fw-bold fs-6 mb-2">Variant
                                         1</label>
                                     <div class="col-lg-4">
-                                        <input type="hidden" name="variant1_id" value="{{ $detail_item[0]->variant_id }}">
+                                        <input type="hidden" name="variant1_id"
+                                            value="{{ $detail_item[0]->variant_id }}">
                                         <input type="text" name="variant1" id="variant1"
                                             onchange="coloumnDetailVarian(this)"
                                             class="form-control form-control-white mb-3 mb-lg-0"
-                                            value="{{ $detail_item[0]->variant_name }}" required /></div>
+                                            value="{{ $detail_item[0]->variant_name }}" required />
+                                    </div>
                                 </div>
                                 <div class="row"><label class="required fw-bold fs-6 mb-2">Option</label>
                                     <div class="row" id="optionrow">
@@ -163,12 +165,125 @@
 
             @if ($is_variant === 2)
                 <div id="activeVariant">
+                    <div class="fv-row mb-7">
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <p class="fw-bold fs-6 mb-2">Variant : </p>
+                            </div>
+                            <div class="col-lg-11 bg-gray-100 rounded py-4">
+                                <div class="fv-row mb-7 col-lg-6"><label class="required fw-bold fs-6 mb-2">Variant
+                                        1</label>
+                                    <div class="col-lg-4">
+                                        <input type="text" name="variant1" id="variant1"
+                                            onchange="coloumnDetailVarian(this)"
+                                            class="form-control form-control-white mb-3 mb-lg-0"
+                                            value="{{ $detail_item['variant_1'][0]->variant_name }}" required />
+                                    </div>
+                                </div>
+                                <div class="row"><label class="required fw-bold fs-6 mb-2">Option</label>
+                                    <div class="row" id="optionrow">
+                                        @foreach ($detail_item['variant_1'] as $di)
+                                            <div class="fv-row mb-7 col-lg-3">
+
+                                                <div class="input-group"><input type="text" name="option1[]"
+                                                        onchange="addOptionRow()" value="{{ $di->option_name }}"
+                                                        id="option"
+                                                        class="form-control form-control-white mb-3 mb-lg-0 option-varian1"
+                                                        required /><button type="button"
+                                                        class="btn btn-sm btn-icon btn-danger input-group-text"
+                                                        onclick="deleteOptionRow(this)"><i
+                                                            class="bi bi-trash"></i></button>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="fv-row mb-7 row" id="variant2Content">
+                                    <div class="fv-row mb-7 col-lg-6"><label
+                                            class="required fw-bold fs-6 mb-2">Variant 2</label>
+                                        <div class="col-lg-4">
+                                            <input type="text" name="variant2" id="variant2"
+                                                class="form-control  form-control-white mb-3 mb-lg-0"
+                                                value="{{ $detail_item['variant_2'][0]->variant_name }}" required />
+                                        </div>
+                                    </div>
+                                    <div class="row"><label class="required fw-bold fs-6 mb-2">Option</label>
+                                        <div class="row" id="option2row">
+                                            @foreach ($detail_item['variant_2'] as $item)
+                                                <div class="fv-row mb-7 col-lg-3">
+                                                    <div class="input-group">
+                                                        <input type="text" name="option2[]"
+                                                            onchange="addOption2Row()"
+                                                            value="{{ $item->option_name }}"
+                                                            id="option2"class="form-control  option-varian2 form-control-white mb-3 mb-lg-0"
+                                                            required />
+                                                        <button type="button"
+                                                            class="btn btn-sm btn-icon btn-danger input-group-text"
+                                                            onclick="deleteOptionRow(this)">
+                                                            <i class="bi bi-trash"></i></button>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end"><button
+                                class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger"
+                                onclick="unActiveVariant()">Cancel Variant</div>
+                    </div>
                 </div>
-            @endif
 
+                <div class="py-4 col-lg-8" id="tableVarian">
+                    <div class="fv-row mb-7 col-lg-6"><label class="fw-bold fs-6 mb-2">Price for All</label>
+                        <div class="input-group"> <input type="text" id="priceForAll"
+                                class="form-control form-control-solid mb-3 mb-lg-0" /> <button type="button"
+                                class="btn btn-sm btn-primary input-group-text"
+                                onclick="changeAllPrice()">Change</button> </div>
+                    </div>
+                    <table class="table table-row-dashed fs-6 gy-5">
+                        <thead>
+                            <tr id="coloumnDetailVarian"
+                                class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                <th>{{ $detail_item['variant_1'][0]->variant_name }}</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contentTable">
+                            @foreach ($detail_item['variant_1'] as $di)
+                                <tr>
+                                    <td>{{ $di->option_name }}</td>
+                                    <td>
+                                        @php
+                                            $variant_2 =DB::select('select * from variant_options a where a.parent = ' . $di->option_id);
+                                        @endphp
 
+                                        @foreach ($variant_2 as $item)
+                                            <div class="py-2">
+                                                <label class="required fw-bold fs-6 mb-2">{{ $item->name }}
+                                                    <span class="fs-8">
+                                                    </span></label>
+                                                <input type="text" name="price[]" value="{{ $item->price }}"
+                                                    class="form-control price form-control-solid mb-3 mb-lg-0"
+                                                    required />
+                                            </div>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                            @endforeach
 
+                        </tbody>
+                    </table>
+                </div>
         </div>
+
+        @endif
+
+
+
+    </div>
     </div>
 
 
@@ -177,7 +292,7 @@
             <button type="button" class="btn btn-sm btn-secondary" onclick="tutupModal()">Close</button>
         </div>
         <div class="px-2">
-            <button class="btn btn-sm btn-primary" id="btn-add">Add Item</button>
+            <button class="btn btn-sm btn-primary" id="btn-update">Update Item</button>
         </div>
     </div>
 </form>
@@ -189,14 +304,14 @@
     $('#update-form').on('submit', function(e) {
         e.preventDefault();
 
-        $('#btn-add').hide()
+        $('#btn-update').hide()
         $('#loadingnya').html(
             '<div class="spinner-grow text-success" role="status"><span class="sr-only"></span></div>')
 
         var form = $('#update-form')
         $.ajax({
             type: "POST",
-            url: "{{ url('/admin/masterdata/item/store') }}",
+            url: "{{ url('/admin/masterdata/item/update') }}",
             data: $('#update-form').serialize(),
             dataType: 'json',
             success: function(response) {
@@ -275,7 +390,7 @@
                     isi +=
                         '<div class="py-2">  <label class="required fw-bold fs-6 mb-2">' + $(this)
                         .val() + ' <span class="fs-8">(' + $('#variant2').val() +
-                        ')</span</label><input type="text" name="price[]" class="form-control price form-control-solid mb-3 mb-lg-0" required /></div>';
+                        ')</span></label><input type="text" name="price[]" class="form-control price form-control-solid mb-3 mb-lg-0" required /></div>';
                 })
                 isi += '</td></tr>'
             })
@@ -294,20 +409,6 @@
     function changeAllPrice() {
         $('.price').each(function() {
             $(this).val($('#priceForAll').val())
-        })
-    }
-
-    function getCode() {
-        var theCode = $('#name').val().split(' ').join('-');
-
-        $.ajax({
-            type: 'get',
-            url: "{{ url('/admin/masterdata/item/getcode') }}",
-            dataType: 'json',
-            success: function(response) {
-                theCode = theCode + response.code;
-                $('#code').val(theCode);
-            }
         })
     }
 </script>

@@ -182,7 +182,7 @@
                     isi +=
                         '<div class="py-2">  <label class="required fw-bold fs-6 mb-2">' + $(this)
                         .val() + ' <span class="fs-8">(' + $('#variant2').val() +
-                        ')</span</label><input type="text" name="price[]" class="form-control price form-control-solid mb-3 mb-lg-0" required /></div>';
+                        ')</span></label><input type="text" name="price[]" class="form-control price form-control-solid mb-3 mb-lg-0" required /></div>';
                 })
                 isi += '</td></tr>'
             })
