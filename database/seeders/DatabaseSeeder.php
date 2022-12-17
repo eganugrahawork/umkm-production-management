@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
                 MenuAccessSeeder::class,
                 TypePartnerSeeder::class,
                 CustomerTypeSeeder::class,
-                ItemCategorySeeder::class
+                ItemCategorySeeder::class,
+                OrderingSeeder::class
             ]
             );
     }

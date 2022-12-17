@@ -30,12 +30,12 @@
             </div>
             <div class="fv-row mb-7 col-lg-8">
                 <label class="required fw-bold fs-6 mb-2">Name</label>
-                <input type="text" name="name" id="name" onchange="getCode()" class="form-control form-control-solid mb-3 mb-lg-0"
+                <input type="text" name="name" id="name"  class="form-control form-control-solid mb-3 mb-lg-0"
                     required />
             </div>
             <div class="fv-row mb-7 col-lg-8">
                 <label class="required form-label fw-bold">Category</label>
-                <select class="form-select  form-select-solid mb-3 mb-lg-0 select-2" onchange="getCode()" name="category_id" id="category_id"
+                <select class="form-select  form-select-solid mb-3 mb-lg-0 select-2" name="category_id" id="category_id"
                     required>
                     @foreach ($category as $ct)
 
@@ -204,16 +204,15 @@
         })
     }
 
+    getCode()
     function getCode(){
-        var theCode = $('#name').val().split(' ').join('-');
-
         $.ajax({
             type: 'get',
             url: "{{ url('/admin/masterdata/item/getcode') }}",
             dataType: 'json',
             success: function(response) {
-              theCode = theCode+response.code;
-                $('#code').val(theCode);
+
+                $('#code').val(response.code);
             }
         })
     }

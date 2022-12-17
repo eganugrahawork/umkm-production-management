@@ -24,6 +24,7 @@
             </div>
         </div>
         <div class="col-lg-9">
+            <input type="hidden" name="item_id" value="{{ $item->id }}">
             <div class="fv-row mb-7 col-lg-8">
                 <label class="required fw-bold fs-6 mb-2">Code</label>
                 <input type="text" name="code" id="code" value="{{ $item->code }}" readonly
@@ -51,6 +52,7 @@
             </div>
 
             @if ($is_variant === 0)
+            <input type="hidden" name="is_variant" value="0">
                 <div id="activeVariant">
                     <div class="row">
                         <div class="col-lg-6">
@@ -83,6 +85,7 @@
             @endif
 
             @if ($is_variant === 1)
+            <input type="hidden" name="is_variant" value="1">
                 <div id="activeVariant">
                     <div class="fv-row mb-7">
                         <div class="row">
@@ -164,6 +167,7 @@
             @endif
 
             @if ($is_variant === 2)
+            <input type="hidden" name="is_variant" value="2">
                 <div id="activeVariant">
                     <div class="fv-row mb-7">
                         <div class="row">
@@ -184,7 +188,6 @@
                                     <div class="row" id="optionrow">
                                         @foreach ($detail_item['variant_1'] as $di)
                                             <div class="fv-row mb-7 col-lg-3">
-
                                                 <div class="input-group"><input type="text" name="option1[]"
                                                         onchange="addOptionRow()" value="{{ $di->option_name }}"
                                                         id="option"
@@ -254,7 +257,8 @@
                         <tbody id="contentTable">
                             @foreach ($detail_item['variant_1'] as $di)
                                 <tr>
-                                    <td>{{ $di->option_name }}</td>
+                                    <td>{{ $di->option_name }}
+                                    <input type="hidden" name="option1_id[]" value="{{ $di->option_id }}"></td>
                                     <td>
                                         @php
                                             $variant_2 =DB::select('select * from variant_options a where a.parent = ' . $di->option_id);
@@ -265,6 +269,7 @@
                                                 <label class="required fw-bold fs-6 mb-2">{{ $item->name }}
                                                     <span class="fs-8">
                                                     </span></label>
+                                                    <input type="hidden" name="option2_id[]" value="{{ $item->id }}">
                                                 <input type="text" name="price[]" value="{{ $item->price }}"
                                                     class="form-control price form-control-solid mb-3 mb-lg-0"
                                                     required />
@@ -332,7 +337,7 @@
             '<div class="row"><div class="col-lg-6"><div class="fv-row mb-7"> <div class="row"><div class="col-lg-3"> <p class="fw-bold fs-6 mb-2">Variant : </p> </div> <div class="col-lg-9"><button type="button" class="btn btn-sm btn-outline btn-outline-dashed btn-outline-info btn-active-light-info" onclick="activeVariant()"><i class="bi bi-plus-circle-dotted"></i>Variant</button> </div> </div> </div> <div id="variant"> <div class="col-lg-6 fv-row mb-7"><label class="required fw-bold fs-6 mb-2">Price (Hpp)</label> <input type="number" name="price" id="price" class="form-control form-control-solid mb-3 mb-lg-0" required /> </div></div> </div></div>';
         $('#tableVarian').remove()
         $('#activeVariant').html(unvariant);
-        infoVarian2 = false;
+        infoVarian2 =false;
     }
 
     function activeVariant() {
